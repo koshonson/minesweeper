@@ -1,10 +1,11 @@
 import React from 'react';
+import { Cell } from './Cell.jsx';
 
 export const GameBoard = ({ width, height }) => {
   const renderCells = ({ width, height }) => {
     const cells = [];
     for (let cell = 0; cell < width * height; cell++) {
-      cells.push(<div className='cell' key={cell}></div>);
+      cells.push(<Cell key={cell} />);
     }
     return cells;
   };
@@ -14,7 +15,7 @@ export const GameBoard = ({ width, height }) => {
       <div className='game-board' style={{ gridTemplateColumns: `repeat(${width}, auto)` }}>
         {renderCells({ width, height })}
       </div>
-      <div class='game-display' style={{ height: `calc(32px * ${height})` }}></div>
+      <div className='game-display' style={{ height: `calc(32px * ${height})` }}></div>
     </main>
   );
 };
