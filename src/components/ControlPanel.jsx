@@ -17,6 +17,13 @@ export const ControlPanel = ({ state, dispatch }) => {
         value={state.height}
         onChange={e => dispatch({ type: 'set-height', payload: e.target.value })}
       />
+      <label htmlFor='board-height'>Number of mines:</label>
+      <input
+        type='number'
+        name='num-mines'
+        value={state.numMines}
+        onChange={e => dispatch({ type: 'set-mines', payload: e.target.value })}
+      />
     </div>
   );
 };

@@ -10,13 +10,15 @@ const reducer = (state, action) => {
       return { ...state, width: action.payload };
     case 'set-height':
       return { ...state, height: action.payload };
+    case 'set-mines':
+      return { ...state, numMines: action.payload };
     default:
       return state;
   }
 };
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, { width: 10, height: 10 });
+  const [state, dispatch] = useReducer(reducer, { width: 10, height: 10, numMines: 10 });
 
   return (
     <div className='container'>
