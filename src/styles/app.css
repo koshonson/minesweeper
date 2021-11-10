@@ -9,7 +9,6 @@
 
 .game-board {
   display: grid;
-  grid-template-columns: repeat(10, auto);
   gap: 2px;
 }
 
