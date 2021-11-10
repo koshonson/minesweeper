@@ -118,7 +118,7 @@ export const cellGraphReducer = (state, { type, payload }) => {
       });
     case CELL_GRAPH_ACTIONS.FLAG:
       return state.map(cell => {
-        return cell.id === payload.id ? { ...cell, flagged: true } : cell;
+        return cell.id === payload.id ? { ...cell, flagged: !cell.flagged } : cell;
       });
     default:
       return console.warn(`Action type ${type} not supported on cellGraphReducer`);

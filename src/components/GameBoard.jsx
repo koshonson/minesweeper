@@ -13,20 +13,22 @@ export const GameBoard = ({ settings }) => {
   const [board, dispatch] = useReducer(cellGraphReducer, cellGraph);
 
   useEffect(() => {
+    console.log('re-rendering');
     dispatch({ type: actions.SET, payload: { board: cellGraph } });
   }, [settings]);
 
   const renderCells = (board, dispatch) => {
     if (!board) return;
     return board.map(cell => {
-      return <Cell key={cell.id} props={{ ...cell, dispatch }} />;
+      cell.dispatch = dispatch;
+      return <Cell key={cell.id} {...cell} />;
     });
   };
 
   return (
     <main className='main-content'>
       <div className='game-board' style={{ gridTemplateColumns: `repeat(${width}, auto)` }}>
-        {renderCells(board)}
+        {renderCells(board, dispatch)}
       </div>
       <div className='game-display' style={{ height: `calc(32px * ${height})` }}></div>
     </main>

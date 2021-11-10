@@ -1,18 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-export const Cell = () => {
-  const [explored, setExplored] = useState(false);
-  const [flagged, setFlagged] = useState(false);
-
+export const Cell = ({ id, explored, flagged, dispatch, neighborBombs, isBomb }) => {
   const flagCell = e => {
     e.preventDefault();
-    setFlagged(!flagged);
+    if (explored) return;
+    dispatch({ type: 'flag', payload: { id } });
   };
 
   const exploreCell = e => {
     e.preventDefault();
     if (flagged) return;
-    setExplored(true);
+    dispatch({ type: 'explore', payload: { id } });
   };
 
   return (
@@ -20,7 +18,11 @@ export const Cell = () => {
       className='cell'
       onContextMenu={flagCell}
       onClick={exploreCell}
-      style={{ backgroundColor: flagged ? 'blue' : explored ? 'red' : 'dodgerblue' }}
-    ></div>
+      style={{
+        backgroundColor: flagged ? 'blue' : explored ? 'rgba(150, 150, 150, 0.5)' : 'dodgerblue'
+      }}
+    >
+      {explored ? (isBomb ? 'X' : neighborBombs ? neighborBombs : '') : ''}
+    </div>
   );
 };
