@@ -19,7 +19,7 @@ function App() {
   const [state, dispatch] = useReducer(reducer, { width: 10, height: 10 });
 
   return (
-    <div className='app'>
+    <div className='container'>
       <ControlPanel state={state} dispatch={dispatch} />
       <GameBoard width={state.width} height={state.height} />
     </div>

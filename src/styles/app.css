@@ -1,10 +1,23 @@
-.app {
+.container {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+
+.control-panel {
+  background-color: rgba(95, 158, 160, 0.5);
+  height: 20vh;
+  width: 100vw;
+}
+
+.main-content {
+  background-color: chartreuse;
+  width: 100%;
+  height: 80vh;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 10px;
-  height: 100%;
 }
 
 .game-board {
@@ -12,11 +25,9 @@
   gap: 2px;
 }
 
-.control-panel {
-  background-color: rgba(95, 158, 160, 0.5);
-  width: 60vmin;
-  height: 20vmin;
-  border-radius: 8px;
+.game-display {
+  width: 200px;
+  background-color: red;
 }
 
 .cell {

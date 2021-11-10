@@ -10,8 +10,11 @@ export const GameBoard = ({ width, height }) => {
   };
 
   return (
-    <div className='game-board' style={{ gridTemplateColumns: `repeat(${width}, auto)` }}>
-      {renderCells({ width, height })}
-    </div>
+    <main class='main-content'>
+      <div className='game-board' style={{ gridTemplateColumns: `repeat(${width}, auto)` }}>
+        {renderCells({ width, height })}
+      </div>
+      <div class='game-display' style={{ height: `calc(32px * ${height})` }}></div>
+    </main>
   );
 };
