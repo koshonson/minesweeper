@@ -1,0 +1,27 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  height: 100%;
+}
+
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(10, auto);
+  gap: 2px;
+}
+
+.control-panel {
+  background-color: rgba(95, 158, 160, 0.5);
+  width: 60vmin;
+  height: 20vmin;
+  border-radius: 8px;
+}
+
+.cell {
+  width: 30px;
+  height: 30px;
+  background-color: blueviolet;
+}
