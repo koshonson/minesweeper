@@ -6,13 +6,19 @@ const initialSettings = {
   numMines: 15
 };
 
+export const SETTINGS_ACTIONS = {
+  SET_WIDTH: 'set-width',
+  SET_HEIGHT: 'set-height',
+  SET_MINES: 'set-mines'
+};
+
 const settingsReducer = (state, action) => {
   switch (action.type) {
-    case 'set-width':
+    case SETTINGS_ACTIONS.SET_WIDTH:
       return { ...state, width: +action.payload };
-    case 'set-height':
+    case SETTINGS_ACTIONS.SET_HEIGHT:
       return { ...state, height: +action.payload };
-    case 'set-mines':
+    case SETTINGS_ACTIONS.SET_MINES:
       return { ...state, numMines: +action.payload };
     default:
       return state;
