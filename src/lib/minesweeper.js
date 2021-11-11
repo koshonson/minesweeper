@@ -1,6 +1,6 @@
 const randomIndexes = (length, number) => {
   const idxs = [];
-  while (idxs.length <= number) {
+  while (idxs.length < number) {
     const idx = Math.floor(Math.random() * length);
     if (idxs.indexOf(idx) === -1) idxs.push(idx);
   }
