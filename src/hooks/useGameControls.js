@@ -1,27 +1,27 @@
 import { useState } from 'react';
 
-export const useGameControls = (setGameStatus, toggleTimer, resetTimer) => {
+export const useGameControls = (setGameStatus, setTimer, resetTime) => {
   const [resetWatcher, setResetWatcher] = useState(0);
 
   const startGame = () => {
     setGameStatus.on();
-    toggleTimer();
+    setTimer(true);
   };
 
   const gameOver = () => {
     setGameStatus.over();
-    toggleTimer();
+    setTimer(false);
   };
 
   const gameWon = () => {
     setGameStatus.won();
-    toggleTimer();
+    setTimer(false);
   };
 
   const resetGame = () => {
     setGameStatus.ready();
-    toggleTimer();
-    resetTimer();
+    setTimer(false);
+    resetTime();
     setResetWatcher(resetWacther + 1);
   };
 

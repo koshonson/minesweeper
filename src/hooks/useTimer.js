@@ -17,13 +17,9 @@ export const useTimer = () => {
     };
   }, [time, timer]);
 
-  const toggleTimer = () => {
-    setTimer(!timer);
-  };
-
   const resetTime = () => {
     setTime(0);
   };
 
-  return { time, toggleTimer, resetTime };
+  return { time, setTimer, resetTime };
 };

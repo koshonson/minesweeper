@@ -13,8 +13,8 @@ export const GameBoard = ({ settings, gameStatus, setGame }) => {
   const cellGraph = generateBoard(settings);
 
   const [board, dispatch] = useMinesweeper(cellGraph);
-  const { time, toggleTimer, resetTime } = useTimer();
-  const controls = useGameControls(setGame, toggleTimer, resetTime);
+  const { time, setTimer, resetTime } = useTimer();
+  const controls = useGameControls(setGame, setTimer, resetTime);
 
   useEffect(() => {
     console.log('re-rendering');
