@@ -12,10 +12,10 @@ export const GameBoard = ({ settings, gameStatus, setGame }) => {
   const { width } = settings;
   const cellGraph = generateBoard(settings);
 
+  const [explored, setExplored] = useState(0);
   const [board, dispatch] = useMinesweeper(cellGraph);
   const { time, setTimer, resetTime } = useTimer();
   const controls = useGameControls(setGame, setTimer, resetTime);
-  const [explored, setExplored] = useState(0);
 
   useEffect(() => {
     console.log('re-rendering');
@@ -25,7 +25,9 @@ export const GameBoard = ({ settings, gameStatus, setGame }) => {
   useEffect(() => {
     setExplored(board.filter(c => c.explored).length);
     const explorable = board.length - settings.numMines;
-    if (explorable === explored) controls.gameWon();
+    if (explorable === explored && gameStatus === 'game-on') {
+      controls.gameWon();
+    }
   }, [board, explored]);
 
   const renderCells = (board, dispatch) => {
@@ -46,7 +48,13 @@ export const GameBoard = ({ settings, gameStatus, setGame }) => {
       <div className='game-board' style={{ gridTemplateColumns: `repeat(${width}, auto)` }}>
         {renderCells(board, dispatch)}
       </div>
-      <ControlPanel settings={settings} gameStatus={gameStatus} time={time} />
+      <ControlPanel
+        settings={settings}
+        gameStatus={gameStatus}
+        time={time}
+        controls={controls}
+        explored={explored}
+      />
     </main>
   );
 };
