@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
-import { useGameControls } from '../hooks/useGameControls.js';
+import React, { useEffect, useState } from 'react';
+import { generateBoard, exploreArea } from '../lib/minesweeper.js';
 
 import { useMinesweeper, CELL_GRAPH_ACTIONS as actions } from '../hooks/useMinesweeper.js';
+import { useGameControls } from '../hooks/useGameControls.js';
 import { useTimer } from '../hooks/useTimer.js';
-import { generateBoard, exploreArea } from '../lib/minesweeper.js';
 
 import { Cell } from './Cell.jsx';
 import { ControlPanel } from './ControlPanel.jsx';
@@ -15,11 +15,18 @@ export const GameBoard = ({ settings, gameStatus, setGame }) => {
   const [board, dispatch] = useMinesweeper(cellGraph);
   const { time, setTimer, resetTime } = useTimer();
   const controls = useGameControls(setGame, setTimer, resetTime);
+  const [explored, setExplored] = useState(0);
 
   useEffect(() => {
     console.log('re-rendering');
     dispatch({ type: actions.SET, payload: { board: cellGraph } });
   }, [settings, controls.resetWatcher]);
+
+  useEffect(() => {
+    setExplored(board.filter(c => c.explored).length);
+    const explorable = board.length - settings.numMines;
+    if (explorable === explored) controls.gameWon();
+  }, [board, explored]);
 
   const renderCells = (board, dispatch) => {
     if (!board) return;
