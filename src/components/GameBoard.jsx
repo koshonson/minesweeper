@@ -44,7 +44,7 @@ export const GameBoard = ({ settings, gameStatus, setGame }) => {
   };
 
   return (
-    <main className='main-content'>
+    <main className={`main-content${gameStatus === 'game-on' ? ' mc-expanded' : ''}`}>
       <div className='game-board' style={{ gridTemplateColumns: `repeat(${width}, auto)` }}>
         {renderCells(board, dispatch)}
       </div>

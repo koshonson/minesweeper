@@ -1,8 +1,8 @@
 import { useReducer } from 'react';
 
 const initialSettings = {
-  width: 10,
-  height: 10,
+  width: 28,
+  height: 21,
   numMines: 15
 };
 
