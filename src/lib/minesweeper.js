@@ -114,9 +114,9 @@ const walkSafeArea = ({ cell, grid, avoid = [] }) => {
   while (toBeExplored.length) {
     const _id = toBeExplored.pop();
     const current = grid.find(({ id }) => id === _id);
-    const { isBomb, neighborBombs, explored, id } = current;
+    const { isBomb, neighborBombs, explored, flagged, id } = current;
 
-    if (isBomb || explored) continue;
+    if (isBomb || explored || flagged) continue;
     if (neighborBombs) walked.push(id);
     if (!neighborBombs)
       walked.push(
