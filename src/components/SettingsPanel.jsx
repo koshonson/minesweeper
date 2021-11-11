@@ -1,7 +1,7 @@
 import React from 'react';
 import { SETTINGS_ACTIONS as actions } from '../hooks/useSettings';
 
-export const ControlPanel = ({ settings, dispatchSettings }) => {
+export const SettingsPanel = ({ settings, dispatchSettings }) => {
   return (
     <div className='control-panel'>
       <label htmlFor='board-width'>Board width:</label>
