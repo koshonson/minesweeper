@@ -13,6 +13,7 @@ function App() {
   const [gameStatus, setGame] = useGameStatus();
 
   useEffect(() => {
+    if (gameStatus !== 'ready') return;
     dispatchSettings({ type: 'set-limits', payload: { width, height } });
   }, [width, height]);
 
