@@ -1,5 +1,3 @@
-import { useReducer } from 'react';
-
 const randomIndexes = (length, number) => {
   const idxs = [];
   while (idxs.length <= number) {
