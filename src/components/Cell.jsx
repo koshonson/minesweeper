@@ -12,6 +12,9 @@ export const Cell = props => {
   const exploreCell = e => {
     e.preventDefault();
     if (explored || flagged) return;
+    if (isBomb) {
+      dispatch({ type: 'explore', payload: { id } });
+    }
     const toBeExplored = exploreArea(props);
     dispatch({ type: 'explore-area', payload: { ids: toBeExplored } });
   };

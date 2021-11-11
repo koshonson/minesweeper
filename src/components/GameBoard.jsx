@@ -1,17 +1,13 @@
-import React, { useEffect, useReducer } from 'react';
-import {
-  cellGraphReducer,
-  generateBoard,
-  exploreArea,
-  CELL_GRAPH_ACTIONS as actions
-} from '../utils/minesweeper.js';
+import React, { useEffect } from 'react';
+import { useMinesweeper, CELL_GRAPH_ACTIONS as actions } from '../hooks/useMinesweeper.js';
+import { generateBoard, exploreArea } from '../lib/minesweeper.js';
 import { Cell } from './Cell.jsx';
 
 export const GameBoard = ({ settings }) => {
   const { width, height } = settings;
   const cellGraph = generateBoard(settings);
 
-  const [board, dispatch] = useReducer(cellGraphReducer, cellGraph);
+  const [board, dispatch] = useMinesweeper(cellGraph);
 
   useEffect(() => {
     console.log('re-rendering');
