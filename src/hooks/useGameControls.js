@@ -22,7 +22,7 @@ export const useGameControls = (setGameStatus, setTimer, resetTime) => {
     setGameStatus.ready();
     setTimer(false);
     resetTime();
-    setResetWatcher(resetWacther + 1);
+    setResetWatcher(resetWatcher + 1);
   };
 
   return { startGame, gameOver, gameWon, resetGame, resetWatcher };
