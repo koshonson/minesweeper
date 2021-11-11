@@ -1,14 +1,20 @@
 import './styles/app.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSettings } from './hooks/useSettings.js';
 import { useGameStatus } from './hooks/useGameStatus';
 
 import { GameBoard } from './components/GameBoard.jsx';
 import { SettingsPanel } from './components/SettingsPanel.jsx';
+import { useWindowSize } from './hooks/useWindowSize';
 
 function App() {
-  const [settings, dispatchSettings] = useSettings();
+  const { width, height } = useWindowSize();
+  const [settings, dispatchSettings] = useSettings(width, height);
   const [gameStatus, setGame] = useGameStatus();
+
+  useEffect(() => {
+    dispatchSettings({ type: 'set-limits', payload: { width, height } });
+  }, [width, height]);
 
   return (
     <div className='container'>
