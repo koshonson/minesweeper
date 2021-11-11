@@ -2,6 +2,7 @@ import React, { useEffect, useReducer } from 'react';
 import {
   cellGraphReducer,
   generateBoard,
+  exploreArea,
   CELL_GRAPH_ACTIONS as actions
 } from '../utils/minesweeper.js';
 import { Cell } from './Cell.jsx';
@@ -19,8 +20,10 @@ export const GameBoard = ({ settings }) => {
 
   const renderCells = (board, dispatch) => {
     if (!board) return;
+    const explore = exploreArea(board);
     return board.map(cell => {
       cell.dispatch = dispatch;
+      cell.exploreArea = explore;
       return <Cell key={cell.id} {...cell} />;
     });
   };

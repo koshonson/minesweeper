@@ -102,9 +102,44 @@ export const generateBoard = config => {
   return buildGraph(grid);
 };
 
+// refactor this shit!!
+const walkSafeArea = ({ cell, grid, avoid = [] }) => {
+  const walked = [cell.id];
+  const toBeExplored = Object.values(cell.neighbors).reduce((cells, neighbor) => {
+    if (!neighbor) return cells;
+    if (avoid.includes(neighbor.id)) return cells;
+    if (cell.neighborBombs) return cells;
+    cells.push(neighbor.id);
+    return cells;
+  }, []);
+
+  while (toBeExplored.length) {
+    const _id = toBeExplored.pop();
+    const current = grid.find(({ id }) => id === _id);
+    const { isBomb, neighborBombs, explored, id } = current;
+
+    if (isBomb || explored) continue;
+    if (neighborBombs) walked.push(id);
+    if (!neighborBombs)
+      walked.push(
+        ...walkSafeArea({
+          cell: current,
+          grid,
+          avoid: [...avoid, ...walked, ...toBeExplored]
+        })
+      );
+  }
+  return walked;
+};
+
+export const exploreArea = grid => cell => {
+  return walkSafeArea({ cell, grid });
+};
+
 export const CELL_GRAPH_ACTIONS = {
   SET: 'set',
   EXPLORE: 'explore',
+  EXPLORE_AREA: 'explore-area',
   FLAG: 'flag'
 };
 
@@ -115,6 +150,10 @@ export const cellGraphReducer = (state, { type, payload }) => {
     case CELL_GRAPH_ACTIONS.EXPLORE:
       return state.map(cell => {
         return cell.id === payload.id ? { ...cell, explored: true } : cell;
+      });
+    case CELL_GRAPH_ACTIONS.EXPLORE_AREA:
+      return state.map(cell => {
+        return payload.ids.includes(cell.id) ? { ...cell, explored: true } : cell;
       });
     case CELL_GRAPH_ACTIONS.FLAG:
       return state.map(cell => {

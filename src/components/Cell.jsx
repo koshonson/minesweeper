@@ -1,6 +1,8 @@
 import React from 'react';
 
-export const Cell = ({ id, explored, flagged, dispatch, neighborBombs, isBomb }) => {
+export const Cell = props => {
+  const { id, explored, flagged, dispatch, neighborBombs, isBomb, exploreArea } = props;
+
   const flagCell = e => {
     e.preventDefault();
     if (explored) return;
@@ -9,8 +11,9 @@ export const Cell = ({ id, explored, flagged, dispatch, neighborBombs, isBomb })
 
   const exploreCell = e => {
     e.preventDefault();
-    if (flagged) return;
-    dispatch({ type: 'explore', payload: { id } });
+    if (explored || flagged) return;
+    const toBeExplored = exploreArea(props);
+    dispatch({ type: 'explore-area', payload: { ids: toBeExplored } });
   };
 
   return (
