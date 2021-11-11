@@ -1,6 +1,7 @@
 import { useReducer } from 'react';
 
 const initialSettings = {
+  bombRate: 15,
   cellSize: 30,
   width: 10,
   maxWidth: 10,
@@ -20,10 +21,18 @@ const settingsReducer = (state, action) => {
   switch (action.type) {
     case SETTINGS_ACTIONS.SET_WIDTH:
       if (+action.payload > state.maxWidth - 10 || +action.payload < 3) return state;
-      return { ...state, width: +action.payload };
+      return {
+        ...state,
+        width: +action.payload,
+        numMines: Math.ceil(((state.width * state.height) / 100) * state.bombRate)
+      };
     case SETTINGS_ACTIONS.SET_HEIGHT:
       if (+action.payload > state.maxHeight - 3 || +action.payload < 3) return state;
-      return { ...state, height: +action.payload };
+      return {
+        ...state,
+        height: +action.payload,
+        numMines: Math.ceil(((state.width * state.height) / 100) * state.bombRate)
+      };
     case SETTINGS_ACTIONS.SET_MINES:
       return { ...state, numMines: +action.payload };
     case SETTINGS_ACTIONS.SET_LIMITS:
