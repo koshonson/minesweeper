@@ -1,21 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { generateBoard, exploreArea } from '../lib/minesweeper.js';
+import React, { useEffect } from 'react';
 
+import { generateBoard, exploreArea } from '../lib/minesweeper.js';
 import { useMinesweeper, CELL_GRAPH_ACTIONS as actions } from '../hooks/useMinesweeper.js';
-import { useGameControls } from '../hooks/useGameControls.js';
-import { useTimer } from '../hooks/useTimer.js';
 
 import { Cell } from './Cell.jsx';
-import { ControlPanel } from './ControlPanel.jsx';
 
-export const GameBoard = ({ settings, gameStatus, setGame }) => {
+export const GameBoard = ({ settings, gameStatus, controls, explored, setExplored }) => {
   const { width } = settings;
   const cellGraph = generateBoard(settings);
 
-  const [explored, setExplored] = useState(0);
   const [board, dispatch] = useMinesweeper(cellGraph);
-  const { time, setTimer, resetTime } = useTimer();
-  const controls = useGameControls(setGame, setTimer, resetTime);
 
   useEffect(() => {
     console.log('re-rendering');
@@ -48,13 +42,6 @@ export const GameBoard = ({ settings, gameStatus, setGame }) => {
       <div className='game-board' style={{ gridTemplateColumns: `repeat(${width}, auto)` }}>
         {renderCells(board, dispatch)}
       </div>
-      <ControlPanel
-        settings={settings}
-        gameStatus={gameStatus}
-        time={time}
-        controls={controls}
-        explored={explored}
-      />
     </main>
   );
 };
