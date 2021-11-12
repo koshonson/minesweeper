@@ -100,16 +100,19 @@ export const generateBoard = config => {
   return buildGraph(grid);
 };
 
-// refactor this shit!!
-const walkSafeArea = ({ cell, grid, avoid = [] }) => {
-  const walked = [cell.id];
-  const toBeExplored = Object.values(cell.neighbors).reduce((cells, neighbor) => {
+const pickCellsToExplore = (cell, avoid) => {
+  return Object.values(cell.neighbors).reduce((cells, neighbor) => {
     if (!neighbor) return cells;
     if (avoid.includes(neighbor.id)) return cells;
     if (cell.neighborBombs) return cells;
     cells.push(neighbor.id);
     return cells;
   }, []);
+};
+
+const walkSafeArea = ({ cell, grid, avoid = [] }) => {
+  const walked = [cell.id];
+  const toBeExplored = pickCellsToExplore(cell, avoid);
 
   while (toBeExplored.length) {
     const _id = toBeExplored.pop();
