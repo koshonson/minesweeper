@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 
 import { generateBoard, exploreArea, explodeBombs } from '../lib/minesweeper.js';
 import { useMinesweeper, CELL_GRAPH_ACTIONS as actions } from '../hooks/useMinesweeper.js';
+import { GAME_STATUSES as status } from '../hooks/useGameStatus.js';
 
 import { Cell } from './Cell.jsx';
 
@@ -13,7 +14,7 @@ export const GameBoard = ({ settings, gameStatus, controls, explored, setExplore
 
   const showBombs = () => {
     const allBombs = explodeBombs(board)();
-    dispatch({ type: 'explore-area', payload: { ids: allBombs } });
+    dispatch({ type: actions.EXPLORE_AREA, payload: { ids: allBombs } });
   };
 
   useEffect(() => {
@@ -24,7 +25,7 @@ export const GameBoard = ({ settings, gameStatus, controls, explored, setExplore
   useEffect(() => {
     setExplored(board.filter(c => c.explored).length);
     const explorable = board.length - settings.numMines;
-    if (explorable === explored && gameStatus === 'game-on') {
+    if (explorable === explored && gameStatus === status.GAME_ON) {
       controls.gameWon();
       setTimeout(showBombs, 750);
     }
@@ -46,7 +47,7 @@ export const GameBoard = ({ settings, gameStatus, controls, explored, setExplore
   };
 
   return (
-    <main className={`main-content${gameStatus !== 'ready' ? ' mc-expanded' : ''}`}>
+    <main className={`main-content${gameStatus !== status.READY ? ' mc-expanded' : ''}`}>
       <div className='game-board' style={{ gridTemplateColumns: `repeat(${width}, auto)` }}>
         {renderCells(board, dispatch)}
       </div>
