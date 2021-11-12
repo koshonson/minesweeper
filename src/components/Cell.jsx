@@ -25,10 +25,11 @@ export const Cell = props => {
 
   const explodeCell = (id, delay = 750) => {
     dispatch({ type: 'explore', payload: { id } });
-    const allBombs = explodeBombs(id);
-    setTimeout(() => {
+    const explodeRest = () => {
+      const allBombs = explodeBombs(id);
       dispatch({ type: 'explore-area', payload: { ids: allBombs } });
-    }, delay);
+    };
+    setTimeout(explodeRest, delay);
     return controls.gameOver();
   };
 

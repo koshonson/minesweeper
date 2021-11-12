@@ -11,6 +11,11 @@ export const GameBoard = ({ settings, gameStatus, controls, explored, setExplore
 
   const [board, dispatch] = useMinesweeper(cellGraph);
 
+  const showBombs = () => {
+    const allBombs = explodeBombs(board)();
+    dispatch({ type: 'explore-area', payload: { ids: allBombs } });
+  };
+
   useEffect(() => {
     console.log('re-rendering');
     dispatch({ type: actions.SET, payload: { board: cellGraph } });
@@ -21,10 +26,6 @@ export const GameBoard = ({ settings, gameStatus, controls, explored, setExplore
     const explorable = board.length - settings.numMines;
     if (explorable === explored && gameStatus === 'game-on') {
       controls.gameWon();
-      const showBombs = () => {
-        const allBombs = explodeBombs(board)();
-        dispatch({ type: 'explore-area', payload: { ids: allBombs } });
-      };
       setTimeout(showBombs, 750);
     }
   }, [board, explored]);
