@@ -5,7 +5,6 @@ export const useTimer = () => {
   const [timer, setTimer] = useState(false);
 
   useEffect(() => {
-    console.log('re-counting time');
     if (!timer) return;
 
     const timeout = setTimeout(() => {

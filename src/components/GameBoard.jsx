@@ -19,7 +19,6 @@ export const GameBoard = ({ settings, gameStatus, controls, explored, setExplore
   };
 
   useEffect(() => {
-    console.log('re-rendering');
     dispatch({ type: actions.SET, payload: { board: cellGraph } });
   }, [settings, controls.resetWatcher]);
 
