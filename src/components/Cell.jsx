@@ -1,6 +1,7 @@
 import bombImage from '../assets/minesweeper.svg';
 import React from 'react';
 
+import { useHover } from '../hooks/useHover';
 import { GAME_STATUSES as game } from '../hooks/useGameStatus';
 import { CELL_GRAPH_ACTIONS as actions } from '../hooks/useMinesweeper';
 
@@ -17,6 +18,8 @@ export const Cell = props => {
     gameStatus,
     controls
   } = props;
+
+  const [hoverRef, isHovered] = useHover();
 
   const flagCell = e => {
     e.preventDefault();
@@ -53,7 +56,9 @@ export const Cell = props => {
     } else {
       if ((explored && isBomb) || (flagged && isBomb)) return { backgroundColor: '' };
     }
-    return { backgroundColor: 'dodgerblue' };
+    return isHovered
+      ? { backgroundColor: 'rgba(30, 144, 255, 0.8)' }
+      : { backgroundColor: 'dodgerblue' };
   };
 
   const animateCellsOnWin = () => {
@@ -62,6 +67,7 @@ export const Cell = props => {
 
   return (
     <div
+      ref={hoverRef}
       className={`cell${animateCellsOnWin()}`}
       onContextMenu={flagCell}
       onClick={exploreCell}
