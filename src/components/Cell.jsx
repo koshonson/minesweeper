@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { GAME_STATUSES as game } from '../hooks/useGameStatus';
+import { CELL_GRAPH_ACTIONS as actions } from '../hooks/useMinesweeper';
 
 export const Cell = props => {
   const {
@@ -20,14 +21,14 @@ export const Cell = props => {
     e.preventDefault();
     if (gameStatus === game.GAME_OVER || gameStatus === game.GAME_WON) return;
     if (explored) return;
-    dispatch({ type: 'flag', payload: { id } });
+    dispatch({ type: actions.FLAG, payload: { id } });
   };
 
   const explodeCell = (id, delay = 750) => {
-    dispatch({ type: 'explore', payload: { id } });
+    dispatch({ type: actions.EXPLORE, payload: { id } });
     const explodeRest = () => {
       const allBombs = explodeBombs(id);
-      dispatch({ type: 'explore-area', payload: { ids: allBombs } });
+      dispatch({ type: actions.EXPLORE_AREA, payload: { ids: allBombs } });
     };
     setTimeout(explodeRest, delay);
     return controls.gameOver();
@@ -40,13 +41,13 @@ export const Cell = props => {
     if (explored || flagged) return;
     if (isBomb) return explodeCell(id);
     const toBeExplored = exploreArea(props);
-    dispatch({ type: 'explore-area', payload: { ids: toBeExplored } });
+    dispatch({ type: actions.EXPLORE_AREA, payload: { ids: toBeExplored } });
   };
 
   const cellStyle = ({ explored, flagged, isBomb }) => {
     if (flagged && !explored) return { backgroundColor: 'rgba(80, 80, 170, 0.6)' };
     if (explored && !isBomb) return { backgroundColor: 'rgba(0,0,0,0.25)' };
-    if (gameStatus === 'game-over') {
+    if (gameStatus === game.GAME_OVER) {
       if ((explored && isBomb) || (flagged && isBomb)) return { backgroundColor: 'red' };
     } else {
       if ((explored && isBomb) || (flagged && isBomb)) return { backgroundColor: '' };
@@ -55,7 +56,7 @@ export const Cell = props => {
   };
 
   const animateCellsOnWin = () => {
-    return gameStatus === 'game-won' && isBomb ? ' bomb-won' : '';
+    return gameStatus === game.GAME_WON && isBomb ? ' bomb-won' : '';
   };
 
   return (
