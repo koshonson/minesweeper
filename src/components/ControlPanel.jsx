@@ -4,6 +4,7 @@ import React from 'react';
 import { SETTINGS_ACTIONS as actions } from '../hooks/useSettings';
 import { Timer } from './Timer.jsx';
 import { ProgressBar } from './ProgressBar';
+import { StatusDisplay } from './StatusDisplay';
 
 export const ControlPanel = props => {
   const { settings, dispatchSettings, gameStatus, time, controls, explored } = props;
@@ -14,7 +15,7 @@ export const ControlPanel = props => {
     return (
       gameStatus === 'ready' && (
         <div className='settings'>
-          <button className='start-game' onClick={controls.startGame}>
+          <button className='start-button' onClick={controls.startGame}>
             START
           </button>
           <div className='settings-inputs'>
@@ -47,14 +48,24 @@ export const ControlPanel = props => {
     );
   };
 
+  const renderStatus = () => {
+    return (
+      (gameStatus === 'game-over' || gameStatus === 'game-won') && (
+        <StatusDisplay gameStatus={gameStatus} />
+      )
+    );
+  };
+
   const renderControls = () => {
     return (
       gameStatus !== 'ready' && (
         <div className='controls'>
           <Timer time={time} />
           <ProgressBar explorable={explorable} explored={explored} gameStatus={gameStatus} />
-          <div className='timer'>{gameStatus}</div>
-          <button onClick={controls.resetGame}>RESET GAME</button>
+          {renderStatus(gameStatus)}
+          <button className='reset-button' onClick={controls.resetGame}>
+            {gameStatus === 'game-won' || gameStatus === 'game-over' ? 'NEW GAME' : 'RESET'}
+          </button>
         </div>
       )
     );
