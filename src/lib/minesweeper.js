@@ -133,6 +133,11 @@ const walkSafeArea = ({ cell, grid, avoid = [] }) => {
   return walked;
 };
 
+export const explodeBombs = grid => _id => {
+  const allBombs = grid.filter(({ isBomb }) => isBomb).map(({ id }) => id);
+  return _id ? allBombs.filter(id => id !== _id) : allBombs;
+};
+
 export const exploreArea = grid => cell => {
   return walkSafeArea({ cell, grid });
 };
