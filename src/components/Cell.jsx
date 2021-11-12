@@ -8,8 +8,8 @@ export const Cell = props => {
     explored,
     flagged,
     dispatch,
-    neighborBombs,
     isBomb,
+    neighborBombs,
     exploreArea,
     gameStatus,
     controls
@@ -35,22 +35,21 @@ export const Cell = props => {
     dispatch({ type: 'explore-area', payload: { ids: toBeExplored } });
   };
 
+  const cellStyle = ({ explored, flagged, isBomb }) => {
+    if (flagged) return { backgroundColor: 'rgba(80, 80, 170, 0.6)' };
+    if (explored && !isBomb) return { backgroundColor: 'rgba(0,0,0,0.25)' };
+    if (explored && isBomb) return { backgroundColor: 'red' };
+    return { backgroundColor: 'dodgerblue' };
+  };
+
   return (
     <div
       className='cell'
       onContextMenu={flagCell}
       onClick={exploreCell}
-      style={{
-        backgroundColor: flagged
-          ? 'blue'
-          : explored
-          ? 'rgba(150, 150, 150, 0.5)'
-          : isBomb
-          ? 'orange'
-          : 'dodgerblue'
-      }}
+      style={cellStyle({ explored, flagged, isBomb })}
     >
-      {explored ? (isBomb ? 'X' : neighborBombs ? neighborBombs : '') : ''}
+      {explored && !isBomb && neighborBombs ? neighborBombs : ''}
     </div>
   );
 };
