@@ -34,6 +34,7 @@ const settingsReducer = (state, action) => {
         numMines: Math.ceil(((state.width * state.height) / 100) * state.bombRate)
       };
     case SETTINGS_ACTIONS.SET_MINES:
+      if (+action.payload < 2 || +action.payload > state.width * state.height - 1) return state;
       return { ...state, numMines: +action.payload };
     case SETTINGS_ACTIONS.SET_LIMITS:
       return {
