@@ -1,3 +1,4 @@
+import '../styles/board.css';
 import React, { useEffect } from 'react';
 
 import { generateBoard, exploreArea, explodeBombs } from '../lib/minesweeper.js';
