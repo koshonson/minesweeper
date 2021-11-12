@@ -37,3 +37,26 @@
   justify-content: center;
   align-items: center;
 }
+
+.bomb-won {
+  background-color: red;
+  animation: bombWon 2500ms infinite linear;
+}
+
+@keyframes bombWon {
+  0% {
+    background-color: red;
+  }
+  25% {
+    background-color: magenta;
+  }
+  50% {
+    background-color: blue;
+  }
+  75% {
+    background-color: yellowgreen;
+  }
+  100% {
+    background-color: red;
+  }
+}

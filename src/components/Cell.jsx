@@ -11,6 +11,7 @@ export const Cell = props => {
     isBomb,
     neighborBombs,
     exploreArea,
+    explodeBombs,
     gameStatus,
     controls
   } = props;
@@ -22,29 +23,43 @@ export const Cell = props => {
     dispatch({ type: 'flag', payload: { id } });
   };
 
+  const explodeCell = (id, delay = 750) => {
+    dispatch({ type: 'explore', payload: { id } });
+    const allBombs = explodeBombs(id);
+    setTimeout(() => {
+      dispatch({ type: 'explore-area', payload: { ids: allBombs } });
+    }, delay);
+    return controls.gameOver();
+  };
+
   const exploreCell = e => {
     e.preventDefault();
     if (gameStatus === game.GAME_OVER || gameStatus === game.GAME_WON) return;
     if (gameStatus === game.READY) controls.startGame();
     if (explored || flagged) return;
-    if (isBomb) {
-      dispatch({ type: 'explore', payload: { id } });
-      return controls.gameOver();
-    }
+    if (isBomb) return explodeCell(id);
     const toBeExplored = exploreArea(props);
     dispatch({ type: 'explore-area', payload: { ids: toBeExplored } });
   };
 
   const cellStyle = ({ explored, flagged, isBomb }) => {
-    if (flagged) return { backgroundColor: 'rgba(80, 80, 170, 0.6)' };
+    if (flagged && !explored) return { backgroundColor: 'rgba(80, 80, 170, 0.6)' };
     if (explored && !isBomb) return { backgroundColor: 'rgba(0,0,0,0.25)' };
-    if (explored && isBomb) return { backgroundColor: 'red' };
+    if (gameStatus === 'game-over') {
+      if ((explored && isBomb) || (flagged && isBomb)) return { backgroundColor: 'red' };
+    } else {
+      if ((explored && isBomb) || (flagged && isBomb)) return { backgroundColor: '' };
+    }
     return { backgroundColor: 'dodgerblue' };
+  };
+
+  const animateCellsOnWin = () => {
+    return gameStatus === 'game-won' && isBomb ? ' bomb-won' : '';
   };
 
   return (
     <div
-      className='cell'
+      className={`cell${animateCellsOnWin()}`}
       onContextMenu={flagCell}
       onClick={exploreCell}
       style={cellStyle({ explored, flagged, isBomb })}

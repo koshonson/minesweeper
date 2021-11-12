@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { generateBoard, exploreArea } from '../lib/minesweeper.js';
+import { generateBoard, exploreArea, explodeBombs } from '../lib/minesweeper.js';
 import { useMinesweeper, CELL_GRAPH_ACTIONS as actions } from '../hooks/useMinesweeper.js';
 
 import { Cell } from './Cell.jsx';
@@ -21,16 +21,23 @@ export const GameBoard = ({ settings, gameStatus, controls, explored, setExplore
     const explorable = board.length - settings.numMines;
     if (explorable === explored && gameStatus === 'game-on') {
       controls.gameWon();
+      const showBombs = () => {
+        const allBombs = explodeBombs(board)();
+        dispatch({ type: 'explore-area', payload: { ids: allBombs } });
+      };
+      setTimeout(showBombs, 750);
     }
   }, [board, explored]);
 
   const renderCells = (board, dispatch) => {
     if (!board) return;
     const explore = exploreArea(board);
+    const explode = explodeBombs(board);
 
     return board.map(cell => {
       cell.dispatch = dispatch;
       cell.exploreArea = explore;
+      cell.explodeBombs = explode;
       cell.gameStatus = gameStatus;
       cell.controls = controls;
       return <Cell key={cell.id} {...cell} />;
