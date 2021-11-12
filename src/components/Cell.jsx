@@ -1,3 +1,4 @@
+import bombImage from '../assets/minesweeper.svg';
 import React from 'react';
 
 import { GAME_STATUSES as game } from '../hooks/useGameStatus';
@@ -67,6 +68,7 @@ export const Cell = props => {
       style={cellStyle({ explored, flagged, isBomb })}
     >
       {explored && !isBomb && neighborBombs ? neighborBombs : ''}
+      {explored && isBomb && <img src={bombImage} width='65%' height='65%' />}
     </div>
   );
 };

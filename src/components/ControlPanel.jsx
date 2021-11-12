@@ -1,4 +1,5 @@
 import '../styles/controls.css';
+import logo from '../assets/minesweeper.svg';
 import React from 'react';
 
 import { SETTINGS_ACTIONS as actions } from '../hooks/useSettings';
@@ -76,7 +77,10 @@ export const ControlPanel = props => {
 
   return (
     <div className={`control-panel${gameStatus !== 'ready' ? ' cp-collapsed' : ''}`}>
-      <h1>MineSweeper</h1>
+      <div className='logo-box'>
+        <img src={logo} width='40' height='40' />
+        <h1>MineSweeper</h1>
+      </div>
       {renderSettings()}
       {renderControls()}
     </div>

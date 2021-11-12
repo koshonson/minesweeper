@@ -13,6 +13,12 @@
   transition: 0.4s;
 }
 
+.logo-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .settings {
   display: flex;
   align-items: center;
