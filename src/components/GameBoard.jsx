@@ -24,7 +24,7 @@ export const GameBoard = ({ settings, gameStatus, controls, explored, setExplore
   }, [settings, controls.resetWatcher]);
 
   useEffect(() => {
-    setExplored(board.filter(c => c.explored).length);
+    setExplored(board.filter(c => c.explored && !c.isBomb).length);
     const explorable = board.length - settings.numMines;
     if (explorable === explored && gameStatus === status.GAME_ON) {
       controls.gameWon();
