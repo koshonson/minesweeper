@@ -4,7 +4,7 @@
   height: 100px;
   align-items: center;
   justify-content: space-between;
-  background-color: rgba(95, 158, 160, 0.5);
+  background-color: rgba(50, 240, 150, 0.9);
   transition: 0.4s;
 }
 
@@ -25,6 +25,26 @@
   gap: 20px;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.settings-input {
+  appearance: none;
+  outline: none;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 1px 8px;
+  width: 100px;
+}
+
+.settings-input:active,
+.settings-input:focus {
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
 .start-button {
   width: 80px;
   height: 80px;
@@ -37,6 +57,7 @@
 
 .start-button:hover {
   filter: invert(0.8);
+  font-size: 1.25em;
 }
 
 .settings-inputs {
@@ -101,7 +122,6 @@ progress.grey-bar::-webkit-progress-value {
 .reset-button {
   margin-left: 20px;
   padding: 0;
-  padding-left: 2px;
   font-size: 0.8em;
   font-weight: bolder;
   width: 34px;
@@ -115,4 +135,5 @@ progress.grey-bar::-webkit-progress-value {
 
 .reset-button:hover {
   filter: invert(0.8);
+  border-radius: 5px;
 }

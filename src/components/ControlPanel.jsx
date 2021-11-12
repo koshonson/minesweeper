@@ -23,6 +23,7 @@ export const ControlPanel = props => {
           <div className='settings-inputs'>
             <label htmlFor='board-width'>Board width:</label>
             <input
+              className='settings-input'
               type='number'
               name='board-width'
               value={settings.width}
@@ -30,6 +31,7 @@ export const ControlPanel = props => {
             />
             <label htmlFor='board-height'>Board height:</label>
             <input
+              className='settings-input'
               type='number'
               name='board-height'
               value={settings.height}
@@ -39,6 +41,7 @@ export const ControlPanel = props => {
             />
             <label htmlFor='board-height'>Number of mines:</label>
             <input
+              className='settings-input'
               type='number'
               name='num-mines'
               value={settings.numMines}
@@ -65,7 +68,11 @@ export const ControlPanel = props => {
           <Timer time={time} />
           <ProgressBar explorable={explorable} explored={explored} gameStatus={gameStatus} />
           {renderStatus(gameStatus)}
-          <button className='reset-button' onClick={controls.resetGame}>
+          <button
+            className='reset-button'
+            onClick={controls.resetGame}
+            style={gameStatus === status.GAME_ON ? { paddingLeft: '2px' } : {}}
+          >
             {gameStatus === status.GAME_WON || gameStatus === status.GAME_OVER
               ? 'NEW GAME'
               : 'RESET'}
