@@ -1,6 +1,8 @@
 import '../styles/controls.css';
 import React from 'react';
+
 import { SETTINGS_ACTIONS as actions } from '../hooks/useSettings';
+import { Timer } from './Timer.jsx';
 
 export const ControlPanel = props => {
   const { settings, dispatchSettings, gameStatus, time, controls, explored } = props;
@@ -10,7 +12,7 @@ export const ControlPanel = props => {
   const renderSettings = () => {
     return (
       gameStatus === 'ready' && (
-        <div class='settings'>
+        <div className='settings'>
           <button className='start-game' onClick={controls.startGame}>
             START
           </button>
@@ -47,9 +49,9 @@ export const ControlPanel = props => {
   const renderControls = () => {
     return (
       gameStatus === 'game-on' && (
-        <div className='game-display' style={{ height: `calc(32px * ${height})` }}>
+        <div className='controls'>
           <div className='timer'>{explored + '/' + explorable}</div>
-          <div className='timer'>{time}</div>
+          <Timer time={time} />
           <div className='timer'>{gameStatus}</div>
           <button onClick={controls.resetGame}>RESET GAME</button>
         </div>
