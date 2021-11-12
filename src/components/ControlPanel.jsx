@@ -2,6 +2,7 @@ import '../styles/controls.css';
 import React from 'react';
 
 import { SETTINGS_ACTIONS as actions } from '../hooks/useSettings';
+import { GAME_STATUSES as status } from '../hooks/useGameStatus';
 import { Timer } from './Timer.jsx';
 import { ProgressBar } from './ProgressBar';
 import { StatusDisplay } from './StatusDisplay';
@@ -13,7 +14,7 @@ export const ControlPanel = props => {
 
   const renderSettings = () => {
     return (
-      gameStatus === 'ready' && (
+      gameStatus === status.READY && (
         <div className='settings'>
           <button className='start-button' onClick={controls.startGame}>
             START
@@ -50,7 +51,7 @@ export const ControlPanel = props => {
 
   const renderStatus = () => {
     return (
-      (gameStatus === 'game-over' || gameStatus === 'game-won') && (
+      (gameStatus === status.GAME_OVER || gameStatus === status.GAME_WON) && (
         <StatusDisplay gameStatus={gameStatus} />
       )
     );
@@ -58,13 +59,15 @@ export const ControlPanel = props => {
 
   const renderControls = () => {
     return (
-      gameStatus !== 'ready' && (
+      gameStatus !== status.READY && (
         <div className='controls'>
           <Timer time={time} />
           <ProgressBar explorable={explorable} explored={explored} gameStatus={gameStatus} />
           {renderStatus(gameStatus)}
           <button className='reset-button' onClick={controls.resetGame}>
-            {gameStatus === 'game-won' || gameStatus === 'game-over' ? 'NEW GAME' : 'RESET'}
+            {gameStatus === status.GAME_WON || gameStatus === status.GAME_OVER
+              ? 'NEW GAME'
+              : 'RESET'}
           </button>
         </div>
       )

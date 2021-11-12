@@ -1,11 +1,13 @@
 import React from 'react';
 
+import { GAME_STATUSES as status } from '../hooks/useGameStatus';
+
 export const StatusDisplay = ({ gameStatus }) => {
   const renderStatus = gameStatus => {
     switch (gameStatus) {
-      case 'game-over':
+      case status.GAME_OVER:
         return 'GAME OVER!';
-      case 'game-won':
+      case status.GAME_WON:
         return 'You Won!';
       default:
         return '';

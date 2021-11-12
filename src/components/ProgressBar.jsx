@@ -1,13 +1,15 @@
 import React from 'react';
 
+import { GAME_STATUSES as status } from '../hooks/useGameStatus';
+
 export const ProgressBar = ({ explorable, explored, gameStatus }) => {
   const barColor = gameStatus => {
     switch (gameStatus) {
-      case 'ready':
+      case status.READY:
         return 'grey-bar';
-      case 'game-over':
+      case status.GAME_OVER:
         return 'red-bar';
-      case 'game-won':
+      case status.GAME_WON:
         return 'green-bar';
       default:
         return 'blue-bar';
