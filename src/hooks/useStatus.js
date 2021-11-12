@@ -7,7 +7,7 @@ export const GAME_STATUSES = {
   GAME_WON: 'game-won'
 };
 
-export const useGameStatus = () => {
+export const useStatus = () => {
   const [gameStatus, setGameStatus] = useState(GAME_STATUSES.READY);
 
   const setGame = {

@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 
 import { generateBoard, exploreArea, explodeBombs } from '../lib/minesweeper.js';
 import { useMinesweeper, CELL_GRAPH_ACTIONS as actions } from '../hooks/useMinesweeper.js';
-import { GAME_STATUSES as status } from '../hooks/useGameStatus.js';
+import { GAME_STATUSES as status } from '../hooks/useStatus.js';
 
 import { Cell } from './Cell.jsx';
 

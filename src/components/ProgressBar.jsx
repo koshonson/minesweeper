@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { GAME_STATUSES as status } from '../hooks/useGameStatus';
+import { GAME_STATUSES as status } from '../hooks/useStatus';
 
 export const ProgressBar = ({ explorable, explored, gameStatus }) => {
   const barColor = gameStatus => {

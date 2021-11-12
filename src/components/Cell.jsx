@@ -2,7 +2,7 @@ import bombImage from '../assets/minesweeper.svg';
 import React from 'react';
 
 import { useHover } from '../hooks/useHover';
-import { GAME_STATUSES as game } from '../hooks/useGameStatus';
+import { GAME_STATUSES as game } from '../hooks/useStatus';
 import { CELL_GRAPH_ACTIONS as actions } from '../hooks/useMinesweeper';
 
 export const Cell = props => {

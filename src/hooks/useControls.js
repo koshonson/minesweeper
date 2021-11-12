@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export const useGameControls = (setGameStatus, setTimer, resetTime) => {
+export const useControls = (setGameStatus, setTimer, resetTime) => {
   const [resetWatcher, setResetWatcher] = useState(0);
 
   const startGame = () => {

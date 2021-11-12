@@ -3,7 +3,7 @@ import logo from '../assets/minesweeper.svg';
 import React from 'react';
 
 import { SETTINGS_ACTIONS as actions } from '../hooks/useSettings';
-import { GAME_STATUSES as status } from '../hooks/useGameStatus';
+import { GAME_STATUSES as status } from '../hooks/useStatus';
 import { Timer } from './Timer.jsx';
 import { ProgressBar } from './ProgressBar';
 import { StatusDisplay } from './StatusDisplay';

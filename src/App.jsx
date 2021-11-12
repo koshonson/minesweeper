@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react';
 
 import { useWindowSize } from './hooks/useWindowSize';
 import { useSettings } from './hooks/useSettings.js';
-import { useGameStatus } from './hooks/useGameStatus';
+import { useStatus } from './hooks/useStatus';
 import { useTimer } from './hooks/useTimer';
-import { useGameControls } from './hooks/useGameControls';
+import { useControls } from './hooks/useControls';
 
 import { GameBoard } from './components/GameBoard.jsx';
 import { ControlPanel } from './components/ControlPanel.jsx';
@@ -14,9 +14,9 @@ function App() {
   const { width, height } = useWindowSize();
   const [settings, dispatchSettings] = useSettings(width, height);
   const [explored, setExplored] = useState(0);
-  const [gameStatus, setGame] = useGameStatus();
+  const [gameStatus, setGame] = useStatus();
   const { time, setTimer, resetTime } = useTimer();
-  const controls = useGameControls(setGame, setTimer, resetTime);
+  const controls = useControls(setGame, setTimer, resetTime);
 
   useEffect(() => {
     if (gameStatus !== 'ready') return;
