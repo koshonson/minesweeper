@@ -45,5 +45,43 @@
 
 .timer {
   padding: 5px 20px;
-  font-size: 1em;
+  font-size: 1.25em;
+  font-weight: bold;
+}
+
+.progress-bar {
+  padding: 5px 20px;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+}
+
+progress {
+  appearance: none;
+  height: 10px;
+}
+
+progress::-webkit-progress-bar {
+  border-radius: 5px;
+}
+
+progress::-webkit-progress-value {
+  border-radius: 5px 0 0 5px;
+}
+
+progress.red-bar::-webkit-progress-value {
+  background-color: red;
+}
+
+progress.green-bar::-webkit-progress-value {
+  background-color: limegreen;
+  border-radius: 5px;
+}
+
+progress.blue-bar::-webkit-progress-value {
+  background-color: dodgerblue;
+}
+
+progress.grey-bar::-webkit-progress-value {
+  background-color: grey;
 }

@@ -3,6 +3,7 @@ import React from 'react';
 
 import { SETTINGS_ACTIONS as actions } from '../hooks/useSettings';
 import { Timer } from './Timer.jsx';
+import { ProgressBar } from './ProgressBar';
 
 export const ControlPanel = props => {
   const { settings, dispatchSettings, gameStatus, time, controls, explored } = props;
@@ -48,10 +49,10 @@ export const ControlPanel = props => {
 
   const renderControls = () => {
     return (
-      gameStatus === 'game-on' && (
+      gameStatus !== 'ready' && (
         <div className='controls'>
-          <div className='timer'>{explored + '/' + explorable}</div>
           <Timer time={time} />
+          <ProgressBar explorable={explorable} explored={explored} gameStatus={gameStatus} />
           <div className='timer'>{gameStatus}</div>
           <button onClick={controls.resetGame}>RESET GAME</button>
         </div>
@@ -60,7 +61,7 @@ export const ControlPanel = props => {
   };
 
   return (
-    <div className={`control-panel${gameStatus === 'game-on' ? ' cp-collapsed' : ''}`}>
+    <div className={`control-panel${gameStatus !== 'ready' ? ' cp-collapsed' : ''}`}>
       <h1>MineSweeper</h1>
       {renderSettings()}
       {renderControls()}
