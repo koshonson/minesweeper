@@ -20,14 +20,14 @@ export const SETTINGS_ACTIONS = {
 const settingsReducer = (state, action) => {
   switch (action.type) {
     case SETTINGS_ACTIONS.SET_WIDTH:
-      if (+action.payload > state.maxWidth - 10 || +action.payload < 3) return state;
+      if (+action.payload > state.maxWidth - 3 || +action.payload < 3) return state;
       return {
         ...state,
         width: +action.payload,
         numMines: Math.ceil(((state.width * state.height) / 100) * state.bombRate)
       };
     case SETTINGS_ACTIONS.SET_HEIGHT:
-      if (+action.payload > state.maxHeight - 3 || +action.payload < 3) return state;
+      if (+action.payload > state.maxHeight - 4 || +action.payload < 3) return state;
       return {
         ...state,
         height: +action.payload,
